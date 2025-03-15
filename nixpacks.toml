@@ -1,8 +1,16 @@
 [phases.setup]
-packageDeps = ["python3", "python3-pip"]
+aptDeps = ["python3", "python3-pip", "python3-venv"]
 
 [phases.install]
-cmds = ["python -m pip install --upgrade pip", "pip install -r requirements.txt"]
+cmds = [
+    "python3 -m venv /opt/venv",
+    "source /opt/venv/bin/activate",
+    "python -m pip install --upgrade pip",
+    "pip install -r requirements.txt"
+]
 
 [start]
-cmd = "streamlit run Home.py"
+cmd = "source /opt/venv/bin/activate && streamlit run Home.py"
+
+[env]
+PATH = "/opt/venv/bin:${PATH}"
